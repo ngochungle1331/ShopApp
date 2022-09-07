@@ -7,7 +7,7 @@ import './product_item.dart';
 class ProductsGrid extends StatelessWidget {
   final bool showFavs;
 
-  const ProductsGrid(this.showFavs, {Key? key}) : super(key: key);
+  ProductsGrid(this.showFavs);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class ProductsGrid extends StatelessWidget {
       itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
         // builder: (c) => products[i],
         value: products[i],
-        child: const ProductItem(
+        child: ProductItem(
             // products[i].id,
             // products[i].title,
             // products[i].imageUrl,

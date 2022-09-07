@@ -10,9 +10,13 @@ class CartItem extends StatelessWidget {
   final int quantity;
   final String title;
 
-  const CartItem(this.id, this.productId, this.price, this.quantity, this.title,
-      {Key? key})
-      : super(key: key);
+  CartItem(
+    this.id,
+    this.productId,
+    this.price,
+    this.quantity,
+    this.title,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +24,16 @@ class CartItem extends StatelessWidget {
       key: ValueKey(id),
       background: Container(
         color: Theme.of(context).errorColor,
+        child: const Icon(
+          Icons.delete,
+          color: Colors.white,
+          size: 40,
+        ),
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 20),
         margin: const EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 4,
-        ),
-        child: const Icon(
-          Icons.delete,
-          color: Colors.white,
-          size: 40,
         ),
       ),
       direction: DismissDirection.endToStart,
@@ -42,13 +46,13 @@ class CartItem extends StatelessWidget {
               'Do you want to remove the item from the cart?',
             ),
             actions: <Widget>[
-              TextButton(
+              FlatButton(
                 child: const Text('No'),
                 onPressed: () {
                   Navigator.of(ctx).pop(false);
                 },
               ),
-              TextButton(
+              FlatButton(
                 child: const Text('Yes'),
                 onPressed: () {
                   Navigator.of(ctx).pop(true);

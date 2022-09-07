@@ -33,10 +33,10 @@ class CartScreen extends StatelessWidget {
                     label: Text(
                       '\$${cart.totalAmount.toStringAsFixed(2)}',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.onSecondary,
                       ),
                     ),
-                    backgroundColor: Theme.of(context).primaryColor,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                   ),
                   TextButton(
                     onPressed: () {
@@ -47,8 +47,12 @@ class CartScreen extends StatelessWidget {
                       cart.clear();
                     },
                     style: TextButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor),
-                    child: const Text('ORDER NOW'),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onPrimary),
+                    child: const Text(
+                      'ORDER NOW',
+                      style: TextStyle(fontSize: 14),
+                    ),
                   )
                 ],
               ),

@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import './cart.dart';
 
 class OrderItem {
-  final String id;
+  final String? id;
   final double amount;
   final List<CartItem> products;
   final DateTime dateTime;
@@ -20,6 +20,10 @@ class OrderItem {
 
 class Orders with ChangeNotifier {
   List<OrderItem> _orders = [];
+  final String authToken;
+  final String userId;
+
+  Orders(this.authToken, this.userId, this._orders);
 
   List<OrderItem> get orders {
     return [..._orders];
@@ -28,7 +32,7 @@ class Orders with ChangeNotifier {
   Future<void> fetchAndSetOrders() async {
     final url = Uri.https(
         'shopapp-f27d0-default-rtdb.asia-southeast1.firebasedatabase.app',
-        '/orders.json');
+        '/orders.json?auth=$authToken');
     final response = await http.get(url);
     final List<OrderItem> loadedOrders = [];
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -53,7 +57,7 @@ class Orders with ChangeNotifier {
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
     final url = Uri.https(
         'shopapp-f27d0-default-rtdb.asia-southeast1.firebasedatabase.app',
-        '/orders.json');
+        '/orders/$userId.json');
     final timestamp = DateTime.now();
 
     final response = await http.post(url,
@@ -70,7 +74,7 @@ class Orders with ChangeNotifier {
               .toList(),
         }));
     final newOrderItem = OrderItem(
-        id: json.decode(response.body)['name'],
+        id: (json.decode(response.body)['name'] as String),
         amount: total,
         products: cartProducts,
         dateTime: timestamp);

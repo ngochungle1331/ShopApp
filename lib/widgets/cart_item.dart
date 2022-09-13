@@ -10,13 +10,8 @@ class CartItem extends StatelessWidget {
   final int quantity;
   final String title;
 
-  CartItem(
-    this.id,
-    this.productId,
-    this.price,
-    this.quantity,
-    this.title,
-  );
+  const CartItem(this.id, this.productId, this.price, this.quantity, this.title,
+      {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +69,6 @@ class CartItem extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           child: ListTile(
             leading: CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.primary,
               child: Padding(
                 padding: const EdgeInsets.all(5),
                 child: FittedBox(

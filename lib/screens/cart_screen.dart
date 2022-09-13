@@ -8,6 +8,8 @@ import '../providers/orders.dart';
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
 
+  const CartScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context);
@@ -33,10 +35,10 @@ class CartScreen extends StatelessWidget {
                     label: Text(
                       '\$${cart.totalAmount.toStringAsFixed(2)}',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSecondary,
+                        color: Theme.of(context).primaryColor,
                       ),
                     ),
-                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor: Theme.of(context).primaryColor,
                   ),
                   OrderButton(cart: cart)
                 ],
@@ -71,11 +73,12 @@ class OrderButton extends StatefulWidget {
   final Cart cart;
 
   @override
-  State<OrderButton> createState() => _OrderButtonState();
+  _OrderButtonState createState() => _OrderButtonState();
 }
 
 class _OrderButtonState extends State<OrderButton> {
   var _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -95,13 +98,10 @@ class _OrderButtonState extends State<OrderButton> {
               widget.cart.clear();
             },
       style: TextButton.styleFrom(
-          backgroundColor: Theme.of(context).colorScheme.onPrimary),
+          textStyle: TextStyle(color: Theme.of(context).primaryColor)),
       child: _isLoading
           ? const CircularProgressIndicator()
-          : const Text(
-              'ORDER NOW',
-              style: TextStyle(fontSize: 14),
-            ),
+          : const Text('ORDER NOW'),
     );
   }
 }

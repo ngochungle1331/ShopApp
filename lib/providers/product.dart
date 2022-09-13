@@ -29,10 +29,16 @@ class Product with ChangeNotifier {
     final oldStatus = isFavorite;
     isFavorite = !isFavorite;
     notifyListeners();
-    final url = Uri.parse(
-        'https://shopapp-f27d0-default-rtdb.asia-southeast1.firebasedatabase.app/userFavorites/$userId/$id.json?auth=$token');
+    final url = Uri.https(
+        'https://shopapp-f27d0-default-rtdb.asia-southeast1.firebasedatabase.app/userFavorites/$userId/$id.json?auth=$token',
+        '/userFavorites/$userId/$id.json?auth=$token');
     try {
-      final response = await http.put(url, body: json.encode(isFavorite));
+      final response = await http.put(
+        url,
+        body: json.encode(
+          isFavorite,
+        ),
+      );
       if (response.statusCode >= 400) {
         _setFavValue(oldStatus);
       }
